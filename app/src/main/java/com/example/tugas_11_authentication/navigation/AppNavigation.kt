@@ -176,9 +176,6 @@ fun MainAppWithBottomNav(
                     },
                     onNavigateToProfile = {
                         bottomNavController.navigate(Screen.User.route)
-                    },
-                    onLogout = {
-                        authViewModel.logout()
                     }
                 )
             }
@@ -196,6 +193,9 @@ fun MainAppWithBottomNav(
                     user = currentUser,
                     onNavigateBack = {
                         bottomNavController.navigate(Screen.Home.route)
+                    },
+                    onLogout = {
+                        authViewModel.logout()
                     }
                 )
             }

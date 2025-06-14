@@ -21,8 +21,7 @@ import java.util.*
 fun HomeScreen(
     user: User?,
     onNavigateToBook: () -> Unit,
-    onNavigateToProfile: () -> Unit,
-    onLogout: () -> Unit
+    onNavigateToProfile: () -> Unit
 ) {
     val dateFormatter = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
     
@@ -33,30 +32,17 @@ fun HomeScreen(
     ) {
         item {
             // Welcome Header
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column {
-                    Text(
-                        text = "Welcome back!",
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = user?.fullName ?: "User",
-                        fontSize = 16.sp,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                IconButton(onClick = onLogout) {
-                    Icon(
-                        Icons.Default.ExitToApp, 
-                        contentDescription = "Logout",
-                        tint = MaterialTheme.colorScheme.error
-                    )
-                }
+            Column {
+                Text(
+                    text = "Welcome back!",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = user?.fullName ?: "User",
+                    fontSize = 16.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
             }
         }
         
