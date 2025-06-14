@@ -15,26 +15,34 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookingScreen(
     onNavigateBack: () -> Unit
 ) {
     var selectedSpace by remember { mutableStateOf<WorkSpace?>(null) }
     
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
+    Column(
+        modifier = Modifier.fillMaxSize()
     ) {
-        item {
-            Text(
-                text = "Book Workspace",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-        }
+        // Top App Bar with back button
+        TopAppBar(
+            title = { Text("Book Workspace") },
+            navigationIcon = {
+                IconButton(onClick = onNavigateBack) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+            }
+        )
         
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
         item {
             Text(
                 text = "Available Spaces",
@@ -65,6 +73,7 @@ fun BookingScreen(
                     Text("Book ${selectedSpace?.name}")
                 }
             }
+        }
         }
     }
 }
