@@ -176,8 +176,8 @@ fun MainAppWithBottomNav(
                         label = { Text(item.label) },
                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                         onClick = {
-                            // Check authentication for protected routes
-                            if ((item.route == Screen.Booking.route || item.route == Screen.User.route) && currentUser == null) {
+                            // Check authentication for protected routes (only User profile requires auth)
+                            if (item.route == Screen.User.route && currentUser == null) {
                                 onNavigateToLogin()
                             } else {
                                 bottomNavController.navigate(item.route) {
@@ -203,11 +203,7 @@ fun MainAppWithBottomNav(
                 HomeScreen(
                     user = currentUser,
                     onNavigateToBook = {
-                        if (currentUser == null) {
-                            onNavigateToLogin()
-                        } else {
-                            bottomNavController.navigate(Screen.Booking.route)
-                        }
+                        bottomNavController.navigate(Screen.Booking.route)
                     },
                     onNavigateToProfile = {
                         if (currentUser == null) {
