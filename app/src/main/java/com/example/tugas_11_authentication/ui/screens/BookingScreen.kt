@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -163,7 +162,7 @@ fun WorkSpaceCard(
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                // Top section with title, location, price, and rating
+                // Top section with title, location, and price
                 Column {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -211,23 +210,6 @@ fun WorkSpaceCard(
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.primary
                             )
-                            
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.padding(top = 2.dp)
-                            ) {
-                                Icon(
-                                    Icons.Default.Star,
-                                    contentDescription = null,
-                                    modifier = Modifier.size(14.dp),
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                                Text(
-                                    text = workspace.rating.toString(),
-                                    fontSize = 13.sp,
-                                    modifier = Modifier.padding(start = 2.dp)
-                                )
-                            }
                         }
                     }
                     
@@ -243,6 +225,8 @@ fun WorkSpaceCard(
                         lineHeight = 18.sp
                     )
                 }
+                
+                Spacer(modifier = Modifier.height(12.dp))
                 
                 // Bottom section with capacity and availability
                 Row(
@@ -300,7 +284,6 @@ data class WorkSpace(
     val description: String,
     val pricePerHour: Int,
     val capacity: Int,
-    val rating: Double,
     val isAvailable: Boolean,
     val imageRes: Int
 )
@@ -314,7 +297,6 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             description = "Premium private office with city view, perfect for important meetings and focused work.",
             pricePerHour = 25,
             capacity = 4,
-            rating = 4.8,
             isAvailable = true,
             imageRes = com.example.tugas_11_authentication.R.drawable.room_1
         ),
@@ -325,7 +307,6 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             description = "Comfortable desk in our vibrant open workspace with high-speed internet and power outlets.",
             pricePerHour = 8,
             capacity = 1,
-            rating = 4.5,
             isAvailable = true,
             imageRes = com.example.tugas_11_authentication.R.drawable.room_2
         ),
@@ -336,7 +317,6 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             description = "Modern meeting room with projector, whiteboard, and video conferencing capabilities.",
             pricePerHour = 35,
             capacity = 8,
-            rating = 4.9,
             isAvailable = false,
             imageRes = com.example.tugas_11_authentication.R.drawable.room_3
         ),
@@ -347,7 +327,6 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             description = "Inspiring space with natural light, perfect for creative work and brainstorming sessions.",
             pricePerHour = 15,
             capacity = 6,
-            rating = 4.7,
             isAvailable = true,
             imageRes = com.example.tugas_11_authentication.R.drawable.room_4
         ),
@@ -358,7 +337,6 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             description = "Private soundproof booth for calls and video meetings.",
             pricePerHour = 12,
             capacity = 1,
-            rating = 4.6,
             isAvailable = true,
             imageRes = com.example.tugas_11_authentication.R.drawable.room_5
         )
