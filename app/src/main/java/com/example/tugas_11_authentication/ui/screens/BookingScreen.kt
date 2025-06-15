@@ -125,7 +125,7 @@ fun WorkSpaceCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(160.dp),
+            .height(180.dp),
         onClick = onSelect,
         colors = CardDefaults.cardColors(
             containerColor = if (isSelected) {
@@ -226,7 +226,7 @@ fun WorkSpaceCard(
                     )
                 }
                 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 
                 // Bottom section with capacity and availability
                 Row(
