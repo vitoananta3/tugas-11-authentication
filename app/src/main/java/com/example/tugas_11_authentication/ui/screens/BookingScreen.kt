@@ -14,13 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tugas_11_authentication.data.entity.User
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookingScreen(
-    onNavigateBack: () -> Unit
+    currentUser: User?,
+    onNavigateBack: () -> Unit,
+    onNavigateToLogin: () -> Unit
 ) {
     var selectedSpace by remember { mutableStateOf<WorkSpace?>(null) }
+    var showBookingDialog by remember { mutableStateOf(false) }
     
     Column(
         modifier = Modifier.fillMaxSize()
@@ -56,25 +60,53 @@ fun BookingScreen(
             WorkSpaceCard(
                 workspace = workspace,
                 isSelected = selectedSpace == workspace,
-                onSelect = { selectedSpace = workspace }
+                onSelect = { 
+                    selectedSpace = workspace
+                    if (currentUser == null) {
+                        // Guest user - navigate to login
+                        onNavigateToLogin()
+                    } else {
+                        // Signed in user - show booking dialog
+                        showBookingDialog = true
+                    }
+                }
             )
         }
-
-        if (selectedSpace != null) {
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-                Button(
+        }
+    }
+    
+    // Booking dialog
+    if (showBookingDialog && selectedSpace != null) {
+        AlertDialog(
+            onDismissRequest = { 
+                showBookingDialog = false
+                selectedSpace = null
+            },
+            title = { Text("Book ${selectedSpace?.name}") },
+            text = {
+                Text("Booking functionality is not yet implemented. This feature will be available in a future update.")
+            },
+            confirmButton = {
+                TextButton(
                     onClick = {
-                        // Handle booking logic here
-                        // For demo, just show a simple message
-                    },
-                    modifier = Modifier.fillMaxWidth()
+                        showBookingDialog = false
+                        selectedSpace = null
+                    }
                 ) {
-                    Text("Book ${selectedSpace?.name}")
+                    Text("OK")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { 
+                        showBookingDialog = false
+                        selectedSpace = null
+                    }
+                ) {
+                    Text("Cancel")
                 }
             }
-        }
-        }
+        )
     }
 }
 

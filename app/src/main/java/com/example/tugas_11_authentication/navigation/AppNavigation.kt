@@ -213,9 +213,11 @@ fun MainAppWithBottomNav(
 
             composable(Screen.Booking.route) {
                 BookingScreen(
+                    currentUser = currentUser,
                     onNavigateBack = {
                         bottomNavController.navigate(Screen.Home.route)
-                    }
+                    },
+                    onNavigateToLogin = onNavigateToLogin
                 )
             }
 
