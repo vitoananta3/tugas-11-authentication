@@ -181,11 +181,7 @@ fun MainAppWithBottomNav(
                                 onNavigateToLogin()
                             } else {
                                 bottomNavController.navigate(item.route) {
-                                    popUpTo(bottomNavController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
                                     launchSingleTop = true
-                                    restoreState = true
                                 }
                             }
                         }
