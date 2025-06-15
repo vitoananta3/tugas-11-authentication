@@ -56,7 +56,7 @@ fun AppNavigation(
         composable(Screen.Onboarding.route) {
             OnboardingScreen(
                 onFinishOnboarding = {
-                    navController.navigate(Screen.Login.route) {
+                    navController.navigate(Screen.Home.route) {
                         popUpTo(Screen.Onboarding.route) { inclusive = true }
                     }
                 }
@@ -71,6 +71,11 @@ fun AppNavigation(
                 },
                 onNavigateToRegister = {
                     navController.navigate(Screen.Register.route)
+                },
+                onNavigateToHome = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
                 },
                 onClearError = {
                     authViewModel.clearError()
@@ -89,6 +94,11 @@ fun AppNavigation(
                         popUpTo(Screen.Register.route) { inclusive = true }
                     }
                 },
+                onNavigateToHome = {
+                    navController.navigate(Screen.Home.route) {
+                        popUpTo(Screen.Register.route) { inclusive = true }
+                    }
+                },
                 onClearError = {
                     authViewModel.clearError()
                 },
@@ -101,21 +111,36 @@ fun AppNavigation(
         composable(Screen.Home.route) {
             MainAppWithBottomNav(
                 authViewModel = authViewModel,
-                startDestination = Screen.Home.route
+                startDestination = Screen.Home.route,
+                onNavigateToLogin = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Home.route) { inclusive = true }
+                    }
+                }
             )
         }
 
         composable(Screen.Booking.route) {
             MainAppWithBottomNav(
                 authViewModel = authViewModel,
-                startDestination = Screen.Booking.route
+                startDestination = Screen.Booking.route,
+                onNavigateToLogin = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Booking.route) { inclusive = true }
+                    }
+                }
             )
         }
 
         composable(Screen.User.route) {
             MainAppWithBottomNav(
                 authViewModel = authViewModel,
-                startDestination = Screen.User.route
+                startDestination = Screen.User.route,
+                onNavigateToLogin = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.User.route) { inclusive = true }
+                    }
+                }
             )
         }
     }
@@ -133,7 +158,8 @@ fun AppNavigation(
 @Composable
 fun MainAppWithBottomNav(
     authViewModel: AuthViewModel,
-    startDestination: String
+    startDestination: String,
+    onNavigateToLogin: () -> Unit
 ) {
     val bottomNavController = rememberNavController()
     val currentUser by authViewModel.currentUser.collectAsState()
@@ -150,12 +176,17 @@ fun MainAppWithBottomNav(
                         label = { Text(item.label) },
                         selected = currentDestination?.hierarchy?.any { it.route == item.route } == true,
                         onClick = {
-                            bottomNavController.navigate(item.route) {
-                                popUpTo(bottomNavController.graph.findStartDestination().id) {
-                                    saveState = true
+                            // Check authentication for protected routes
+                            if ((item.route == Screen.Booking.route || item.route == Screen.User.route) && currentUser == null) {
+                                onNavigateToLogin()
+                            } else {
+                                bottomNavController.navigate(item.route) {
+                                    popUpTo(bottomNavController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
                         }
                     )
@@ -172,10 +203,18 @@ fun MainAppWithBottomNav(
                 HomeScreen(
                     user = currentUser,
                     onNavigateToBook = {
-                        bottomNavController.navigate(Screen.Booking.route)
+                        if (currentUser == null) {
+                            onNavigateToLogin()
+                        } else {
+                            bottomNavController.navigate(Screen.Booking.route)
+                        }
                     },
                     onNavigateToProfile = {
-                        bottomNavController.navigate(Screen.User.route)
+                        if (currentUser == null) {
+                            onNavigateToLogin()
+                        } else {
+                            bottomNavController.navigate(Screen.User.route)
+                        }
                     }
                 )
             }

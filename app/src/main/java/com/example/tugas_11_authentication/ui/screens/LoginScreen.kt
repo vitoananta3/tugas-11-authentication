@@ -25,6 +25,7 @@ fun LoginScreen(
     uiState: AuthUiState,
     onLogin: (String, String) -> Unit,
     onNavigateToRegister: () -> Unit,
+    onNavigateToHome: () -> Unit,
     onClearError: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
@@ -125,6 +126,14 @@ fun LoginScreen(
             onClick = onNavigateToRegister
         ) {
             Text("Don't have an account? Sign Up")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextButton(
+            onClick = onNavigateToHome
+        ) {
+            Text("Continue as Guest")
         }
     }
 }

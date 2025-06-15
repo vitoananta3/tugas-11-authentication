@@ -26,6 +26,7 @@ fun RegisterScreen(
     uiState: AuthUiState,
     onRegister: (String, String, String, Date) -> Unit,
     onNavigateToLogin: () -> Unit,
+    onNavigateToHome: () -> Unit,
     onClearError: () -> Unit,
     onClearRegistrationSuccess: () -> Unit
 ) {
@@ -259,6 +260,14 @@ fun RegisterScreen(
             onClick = onNavigateToLogin
         ) {
             Text("Already have an account? Sign In")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextButton(
+            onClick = onNavigateToHome
+        ) {
+            Text("Continue as Guest")
         }
     }
 
