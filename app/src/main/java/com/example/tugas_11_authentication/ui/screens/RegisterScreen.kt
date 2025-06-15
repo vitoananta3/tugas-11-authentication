@@ -100,9 +100,6 @@ fun RegisterScreen(
                     value = fullName,
                     onValueChange = { fullName = it },
                     label = { Text("Full Name") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Person, contentDescription = null)
-                    },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -113,9 +110,6 @@ fun RegisterScreen(
                     value = dateOfBirth?.let { dateFormatter.format(it) } ?: "",
                     onValueChange = { },
                     label = { Text("Date of Birth") },
-                    leadingIcon = {
-                        Icon(Icons.Default.DateRange, contentDescription = null)
-                    },
                     trailingIcon = {
                         IconButton(onClick = { showDatePicker = true }) {
                             Icon(Icons.Default.DateRange, contentDescription = "Select date")
@@ -151,9 +145,6 @@ fun RegisterScreen(
                     value = email,
                     onValueChange = { email = it },
                     label = { Text("Email") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Email, contentDescription = null)
-                    },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
@@ -165,9 +156,6 @@ fun RegisterScreen(
                     value = password,
                     onValueChange = { password = it },
                     label = { Text("Password") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Lock, contentDescription = null)
-                    },
                     trailingIcon = {
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
                             Icon(
@@ -188,9 +176,6 @@ fun RegisterScreen(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
                     label = { Text("Confirm Password") },
-                    leadingIcon = {
-                        Icon(Icons.Default.Lock, contentDescription = null)
-                    },
                     trailingIcon = {
                         IconButton(onClick = { confirmPasswordVisible = !confirmPasswordVisible }) {
                             Icon(

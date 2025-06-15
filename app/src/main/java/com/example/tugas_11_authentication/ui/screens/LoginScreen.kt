@@ -63,9 +63,6 @@ fun LoginScreen(
             value = email,
             onValueChange = { email = it },
             label = { Text("Email") },
-            leadingIcon = {
-                Icon(Icons.Default.Email, contentDescription = null)
-            },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier.fillMaxWidth(),
             singleLine = true
@@ -77,9 +74,6 @@ fun LoginScreen(
             value = password,
             onValueChange = { password = it },
             label = { Text("Password") },
-            leadingIcon = {
-                Icon(Icons.Default.Lock, contentDescription = null)
-            },
             trailingIcon = {
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Icon(
