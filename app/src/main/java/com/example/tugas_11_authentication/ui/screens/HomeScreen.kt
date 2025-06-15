@@ -251,7 +251,7 @@ fun getSampleNews(): List<NewsItem> {
             title = "New Coffee Bar Menu",
             summary = "Try our new selection of artisanal coffees and healthy snacks.",
             date = "Dec 5, 2024",
-            imageRes = com.example.tugas_11_authentication.R.drawable.news_1
+            imageRes = com.example.tugas_11_authentication.R.drawable.news_4
         )
     )
 }
