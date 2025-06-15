@@ -66,12 +66,25 @@ fun HomeScreen(
 
         // News Section
         item {
-            Text(
-                text = "Latest News",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Latest News",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                TextButton(
+                    onClick = { /* TODO: Navigate to all news */ }
+                ) {
+                    Text(
+                        text = "See All",
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
 
         // Sample news items
