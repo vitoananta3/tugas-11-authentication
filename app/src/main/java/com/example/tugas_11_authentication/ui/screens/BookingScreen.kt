@@ -1,8 +1,10 @@
 package com.example.tugas_11_authentication.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.LocationOn
@@ -11,6 +13,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -127,101 +132,118 @@ fun WorkSpaceCard(
             }
         )
     ) {
-        Column(
+        Row(
             modifier = Modifier.padding(16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.Top
+            // Image on the left
+            Image(
+                painter = painterResource(id = workspace.imageRes),
+                contentDescription = workspace.name,
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            )
+            
+            Spacer(modifier = Modifier.width(16.dp))
+            
+            // Content on the right
+            Column(
+                modifier = Modifier.weight(1f)
             ) {
-                Column(
-                    modifier = Modifier.weight(1f)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.Top
                 ) {
-                    Text(
-                        text = workspace.name,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(top = 4.dp)
+                    Column(
+                        modifier = Modifier.weight(1f)
                     ) {
-                        Icon(
-                            Icons.Default.LocationOn,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
                         Text(
-                            text = workspace.location,
-                            fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            modifier = Modifier.padding(start = 4.dp)
+                            text = workspace.name,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
                         )
+                        
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(top = 4.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.LocationOn,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Text(
+                                text = workspace.location,
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                modifier = Modifier.padding(start = 4.dp)
+                            )
+                        }
+                    }
+                    
+                    Column(
+                        horizontalAlignment = Alignment.End
+                    ) {
+                        Text(
+                            text = "$${workspace.pricePerHour}/hr",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(top = 4.dp)
+                        ) {
+                            Icon(
+                                Icons.Default.Star,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                            Text(
+                                text = workspace.rating.toString(),
+                                fontSize = 14.sp,
+                                modifier = Modifier.padding(start = 2.dp)
+                            )
+                        }
                     }
                 }
                 
-                Column(
-                    horizontalAlignment = Alignment.End
-                ) {
-                    Text(
-                        text = "$${workspace.pricePerHour}/hr",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(top = 4.dp)
-                    ) {
-                        Icon(
-                            Icons.Default.Star,
-                            contentDescription = null,
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                        Text(
-                            text = workspace.rating.toString(),
-                            fontSize = 14.sp,
-                            modifier = Modifier.padding(start = 2.dp)
-                        )
-                    }
-                }
-            }
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Text(
-                text = workspace.description,
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
+                Spacer(modifier = Modifier.height(8.dp))
+                
                 Text(
-                    text = "Capacity: ${workspace.capacity} people",
-                    fontSize = 12.sp,
+                    text = workspace.description,
+                    fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 
-                Text(
-                    text = if (workspace.isAvailable) "Available" else "Occupied",
-                    fontSize = 12.sp,
-                    color = if (workspace.isAvailable) {
-                        MaterialTheme.colorScheme.primary
-                    } else {
-                        MaterialTheme.colorScheme.error
-                    },
-                    fontWeight = FontWeight.Medium
-                )
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Capacity: ${workspace.capacity} people",
+                        fontSize = 12.sp,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    
+                    Text(
+                        text = if (workspace.isAvailable) "Available" else "Occupied",
+                        fontSize = 12.sp,
+                        color = if (workspace.isAvailable) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.error
+                        },
+                        fontWeight = FontWeight.Medium
+                    )
+                }
             }
         }
     }
@@ -235,7 +257,8 @@ data class WorkSpace(
     val pricePerHour: Int,
     val capacity: Int,
     val rating: Double,
-    val isAvailable: Boolean
+    val isAvailable: Boolean,
+    val imageRes: Int
 )
 
 fun getSampleWorkSpaces(): List<WorkSpace> {
@@ -248,7 +271,8 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             pricePerHour = 25,
             capacity = 4,
             rating = 4.8,
-            isAvailable = true
+            isAvailable = true,
+            imageRes = com.example.tugas_11_authentication.R.drawable.room_1
         ),
         WorkSpace(
             id = "2",
@@ -258,7 +282,8 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             pricePerHour = 8,
             capacity = 1,
             rating = 4.5,
-            isAvailable = true
+            isAvailable = true,
+            imageRes = com.example.tugas_11_authentication.R.drawable.room_2
         ),
         WorkSpace(
             id = "3",
@@ -268,7 +293,8 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             pricePerHour = 35,
             capacity = 8,
             rating = 4.9,
-            isAvailable = false
+            isAvailable = false,
+            imageRes = com.example.tugas_11_authentication.R.drawable.room_3
         ),
         WorkSpace(
             id = "4",
@@ -278,7 +304,8 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             pricePerHour = 15,
             capacity = 6,
             rating = 4.7,
-            isAvailable = true
+            isAvailable = true,
+            imageRes = com.example.tugas_11_authentication.R.drawable.room_4
         ),
         WorkSpace(
             id = "5",
@@ -288,7 +315,8 @@ fun getSampleWorkSpaces(): List<WorkSpace> {
             pricePerHour = 12,
             capacity = 1,
             rating = 4.6,
-            isAvailable = true
+            isAvailable = true,
+            imageRes = com.example.tugas_11_authentication.R.drawable.room_5
         )
     )
 }

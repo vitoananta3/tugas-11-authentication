@@ -1,8 +1,10 @@
 package com.example.tugas_11_authentication.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Person
@@ -10,6 +12,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -154,26 +159,43 @@ fun NewsCard(
     Card(
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(
+        Row(
             modifier = Modifier.padding(16.dp)
         ) {
-            Text(
-                text = news.title,
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Medium
+            // Image on the left
+            Image(
+                painter = painterResource(id = news.imageRes),
+                contentDescription = news.title,
+                modifier = Modifier
+                    .size(80.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = news.summary,
-                fontSize = 14.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = news.date,
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.outline
-            )
+            
+            Spacer(modifier = Modifier.width(16.dp))
+            
+            // Text content on the right
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Text(
+                    text = news.title,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Medium
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = news.summary,
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = news.date,
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.outline
+                )
+            }
         }
     }
 }
@@ -181,7 +203,8 @@ fun NewsCard(
 data class NewsItem(
     val title: String,
     val summary: String,
-    val date: String
+    val date: String,
+    val imageRes: Int
 )
 
 fun getSampleNews(): List<NewsItem> {
@@ -189,22 +212,26 @@ fun getSampleNews(): List<NewsItem> {
         NewsItem(
             title = "New Meeting Rooms Available",
             summary = "We've added 5 new state-of-the-art meeting rooms with the latest technology.",
-            date = "Dec 15, 2024"
+            date = "Dec 15, 2024",
+            imageRes = com.example.tugas_11_authentication.R.drawable.news_1
         ),
         NewsItem(
             title = "Holiday Hours Update",
             summary = "Check out our updated holiday schedule for the upcoming season.",
-            date = "Dec 10, 2024"
+            date = "Dec 10, 2024",
+            imageRes = com.example.tugas_11_authentication.R.drawable.news_2
         ),
         NewsItem(
             title = "Networking Event This Friday",
             summary = "Join us for our monthly networking event with local entrepreneurs.",
-            date = "Dec 8, 2024"
+            date = "Dec 8, 2024",
+            imageRes = com.example.tugas_11_authentication.R.drawable.news_3
         ),
         NewsItem(
             title = "New Coffee Bar Menu",
             summary = "Try our new selection of artisanal coffees and healthy snacks.",
-            date = "Dec 5, 2024"
+            date = "Dec 5, 2024",
+            imageRes = com.example.tugas_11_authentication.R.drawable.news_1
         )
     )
 }
