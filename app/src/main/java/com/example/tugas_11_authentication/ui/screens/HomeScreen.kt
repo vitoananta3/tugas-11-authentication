@@ -40,7 +40,7 @@ fun HomeScreen(
             // Welcome Header
             Column {
                 Text(
-                    text = "Welcome back!",
+                    text = "Welcome!",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
@@ -109,7 +109,7 @@ fun UserInfoCard(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = "Welcome back!",
+                text = "Welcome!",
                 fontSize = 16.sp,
                 color = MaterialTheme.colorScheme.onPrimaryContainer
             )

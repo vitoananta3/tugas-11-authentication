@@ -47,7 +47,7 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Welcome Back",
+            text = "Welcome",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold
         )
