@@ -2,7 +2,7 @@ package com.example.tugas_11_authentication.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Book
+import androidx.compose.material.icons.filled.TableRestaurant
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -36,7 +36,7 @@ data class BottomNavItem(
 
 val bottomNavItems = listOf(
     BottomNavItem(Screen.Home.route, Icons.Default.Home, "Home"),
-    BottomNavItem(Screen.Booking.route, Icons.Default.Book, "Book"),
+    BottomNavItem(Screen.Booking.route, Icons.Default.TableRestaurant, "Workspace"),
     BottomNavItem(Screen.User.route, Icons.Default.Person, "Profile")
 )
 
